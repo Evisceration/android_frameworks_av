@@ -1509,7 +1509,11 @@ void Camera2Client::notifyAutoFocus(uint8_t newState, int triggerId) {
     if (sendMovingMessage) {
         SharedCameraCallbacks::Lock l(mSharedCameraCallbacks);
         if (l.mRemoteCallback != 0) {
+#ifdef PRODUCT_LG_P970
+            l.mRemoteCallback->notifyCallback(CAMERA_MSG_FOCUS,
+#else
             l.mRemoteCallback->notifyCallback(CAMERA_MSG_FOCUS_MOVE,
+#endif
                     afInMotion ? 1 : 0, 0);
         }
     }

@@ -240,14 +240,6 @@ void Camera2ClientBase<TClientBase>::notifyAutoFocus(uint8_t newState,
 
     ALOGV("%s: Autofocus state now %d, last trigger %d",
           __FUNCTION__, newState, triggerId);
-
-    typename SharedCameraCallbacks::Lock l(mSharedCameraCallbacks);
-    if (l.mRemoteCallback != 0) {
-        l.mRemoteCallback->notifyCallback(CAMERA_MSG_FOCUS_MOVE, 1, 0);
-    }
-    if (l.mRemoteCallback != 0) {
-        l.mRemoteCallback->notifyCallback(CAMERA_MSG_FOCUS, 1, 0);
-    }
 }
 
 template <typename TClientBase>

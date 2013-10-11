@@ -995,7 +995,11 @@ void CameraClient::handleCompressedBurstPicture(const sp<IMemory>& mem) {
     // get called only once. When burst finishes this message will get automatically
     // disabled in the respective call for restarting the preview.
 
+#ifdef PRODUCT_LG_P970
+    sp<ICameraClient> c = mRemoteCallback;
+#else
     sp<ICameraClient> c = mCameraClient;
+#endif
     mLock.unlock();
     if (c != 0) {
         c->dataCallback(CAMERA_MSG_COMPRESSED_IMAGE, mem, NULL);
